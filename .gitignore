@@ -1,7 +1,7 @@
-# Virtual environment
+# Entorno virtual
 venv/
 
-# Python cache
+# Caché de Python
 __pycache__/
 *.pyc
 
@@ -11,6 +11,6 @@ __pycache__/
 # VS Code
 .vscode/
 
-# OS files
+# Archivos del sistema
 .DS_Store
 Thumbs.db
