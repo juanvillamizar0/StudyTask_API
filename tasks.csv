@@ -1,0 +1,2 @@
+id,title,description,status,student_id,subject_id,due_date
+1,Proyecto FastAPI,Desarrollo de API con persistencia CSV,pending,1,1,2026-05-09
