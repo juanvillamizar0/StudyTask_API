@@ -1,37 +1,78 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Optional
 from enum import Enum
 
 
-# Estado de la tarea (esto suma puntos)
 class TaskStatus(str, Enum):
     pending = "pending"
     completed = "completed"
     cancelled = "cancelled"
 
 
-# Modelo Student
 class Student(BaseModel):
-    id: int
-    name: str
-    email: EmailStr
-    semester: int
+    model_config = ConfigDict(
+        title="Estudiante",
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "name": "Juan Villamizar",
+                "email": "juan@email.com",
+                "semester": 9
+            }
+        }
+    )
+
+    id: int = Field(..., description="Identificador único del estudiante")
+    name: str = Field(..., description="Nombre completo del estudiante")
+    email: EmailStr = Field(..., description="Correo electrónico válido del estudiante")
+    semester: int = Field(..., description="Semestre académico actual del estudiante")
 
 
-# Modelo Subject
 class Subject(BaseModel):
-    id: int
-    name: str
-    credits: int
-    teacher: str
+    model_config = ConfigDict(
+        title="Asignatura",
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "name": "Ingenieria Web",
+                "credits": 3,
+                "teacher": "Sergio Galvis"
+            }
+        }
+    )
+
+    id: int = Field(..., description="Identificador único de la asignatura")
+    name: str = Field(..., description="Nombre de la asignatura")
+    credits: int = Field(..., description="Número de créditos académicos")
+    teacher: str = Field(..., description="Nombre del profesor encargado")
 
 
-# Modelo Task
 class Task(BaseModel):
-    id: int
-    title: str
-    description: str
-    status: TaskStatus = TaskStatus.pending
-    student_id: int
-    subject_id: int
-    due_date: Optional[str] = None
+    model_config = ConfigDict(
+        title="Tarea",
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "title": "Proyecto FastAPI",
+                "description": "Desarrollo de API con persistencia CSV",
+                "status": "pending",
+                "student_id": 1,
+                "subject_id": 1,
+                "due_date": "2026-05-09"
+            }
+        }
+    )
+
+    id: int = Field(..., description="Identificador único de la tarea")
+    title: str = Field(..., description="Título de la tarea académica")
+    description: str = Field(..., description="Descripción de la tarea académica")
+    status: TaskStatus = Field(
+        default=TaskStatus.pending,
+        description="Estado actual de la tarea: pending, completed o cancelled"
+    )
+    student_id: int = Field(..., description="Identificador del estudiante asociado")
+    subject_id: int = Field(..., description="Identificador de la asignatura asociada")
+    due_date: Optional[str] = Field(
+        default=None,
+        description="Fecha opcional de entrega de la tarea"
+    )

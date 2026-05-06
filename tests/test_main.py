@@ -12,7 +12,7 @@ client = TestClient(main.app)
 def test_home_endpoint():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json()["message"] == "Welcome to StudyTask API"
+    assert response.json()["message"] == "Bienvenido a StudyTask API"
 
 
 def test_health_endpoint():
