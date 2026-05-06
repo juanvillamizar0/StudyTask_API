@@ -17,7 +17,8 @@ class Student(BaseModel):
                 "id": 1,
                 "name": "Juan Villamizar",
                 "email": "juan@email.com",
-                "semester": 9
+                "semester": 9,
+                "is_active": True
             }
         }
     )
@@ -26,6 +27,10 @@ class Student(BaseModel):
     name: str = Field(..., description="Nombre completo del estudiante")
     email: EmailStr = Field(..., description="Correo electrónico válido del estudiante")
     semester: int = Field(..., description="Semestre académico actual del estudiante")
+    is_active: bool = Field(
+        default=True,
+        description="Estado del registro. Permite mantener histórico mediante eliminación lógica"
+    )
 
 
 class Subject(BaseModel):
@@ -36,7 +41,8 @@ class Subject(BaseModel):
                 "id": 1,
                 "name": "Ingenieria Web",
                 "credits": 3,
-                "teacher": "Sergio Galvis"
+                "teacher": "Sergio Galvis",
+                "is_active": True
             }
         }
     )
@@ -45,6 +51,10 @@ class Subject(BaseModel):
     name: str = Field(..., description="Nombre de la asignatura")
     credits: int = Field(..., description="Número de créditos académicos")
     teacher: str = Field(..., description="Nombre del profesor encargado")
+    is_active: bool = Field(
+        default=True,
+        description="Estado del registro. Permite mantener histórico mediante eliminación lógica"
+    )
 
 
 class Task(BaseModel):
@@ -58,7 +68,8 @@ class Task(BaseModel):
                 "status": "pending",
                 "student_id": 1,
                 "subject_id": 1,
-                "due_date": "2026-05-09"
+                "due_date": "2026-05-09",
+                "is_active": True
             }
         }
     )
@@ -75,4 +86,8 @@ class Task(BaseModel):
     due_date: Optional[str] = Field(
         default=None,
         description="Fecha opcional de entrega de la tarea"
+    )
+    is_active: bool = Field(
+        default=True,
+        description="Estado del registro. Permite mantener histórico mediante eliminación lógica"
     )
